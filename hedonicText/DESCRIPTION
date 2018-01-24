@@ -1,0 +1,10 @@
+Package: hedonicText
+Title: What the Package Does (one line, title case)
+Version: 0.0.0.9000
+Authors@R: person("Adam", "Nowak", email = "adam.d.nowak@gmail.com", role = c("aut", "cre"))
+Description: Incorporates writted descriptions into hedonic pricing models for estimation.
+Depends: R (>= 3.4.3)
+License: What license is it under?
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1.9000
