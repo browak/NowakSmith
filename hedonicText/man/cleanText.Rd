@@ -5,7 +5,8 @@
 \title{A basic function to process text}
 \usage{
 cleanText(TEXT, lower = NULL, removeNumbers = NULL,
-  removePunctuation = NULL, removeStopWords = NULL, verbose = T)
+  removePunctuation = NULL, removeStopWords = NULL,
+  removeSingleLetters = NULL, verbose = T)
 }
 \arguments{
 \item{TEXT}{a string vector}
@@ -17,6 +18,8 @@ cleanText(TEXT, lower = NULL, removeNumbers = NULL,
 \item{removePunctuation}{remove all PUNCTUATION from TEXT?  Defaults to T}
 
 \item{removeStopWords}{remove all stop words from TEXT?  Defaults to T.  Default list of stop words is the "en" list in the tm package.}
+
+\item{removeSingleLetters}{remove all single letters from TEXT?  Defaults to T.}
 
 \item{verbose}{a logical vector for output to console.  Defaults to F.}
 }

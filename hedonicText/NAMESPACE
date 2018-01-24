@@ -2,3 +2,5 @@
 
 export(cleanText)
 export(flexGramCount)
+export(hedonicWithText)
+export(tokenMatrix)
