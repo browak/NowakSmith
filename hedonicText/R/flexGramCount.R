@@ -10,7 +10,9 @@
 #' @export
 #' @examples
 #' flexGramCount(remarks)
-
+#' 
+#' 
+#' 
 flexGramCount <- function(TEXT , MAXN=NULL , MINN=NULL , MINCOUNT=NULL , VERBOSE=NULL)
 {
 require(ngram)

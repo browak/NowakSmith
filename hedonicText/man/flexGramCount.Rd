@@ -23,5 +23,8 @@ This function allows you to count flex grams given a string vector
 }
 \examples{
 flexGramCount(remarks)
+
+
+
 }
 \keyword{flex-grams}
