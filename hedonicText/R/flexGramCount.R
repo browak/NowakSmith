@@ -2,10 +2,10 @@
 #'
 #' This function allows you to count flex grams given a string vector
 #' @param TEXT a string vector
-#' @param MAXN the maximum number of unigrams allowed in a flexgram.  Defaults to 5
-#' @param MINN the minimum number of unigrams allowed in a flexgram.  Defaults to 2
-#' @param MINCOUNT the minimum number of counts required for each flex-gram.  Defaults to min{floor(0.01*length(TEXT)) , 2}
-#' @param VERBOSE a local vector for output to console
+#' @param MAXN the maximum number of unigrams allowed in a flexgram.  Defaults to 5.
+#' @param MINN the minimum number of unigrams allowed in a flexgram.  Defaults to 2.
+#' @param MINCOUNT the minimum number of counts required for each flex-gram.  Defaults to min(floor(0.01*length(TEXT)) , 2).
+#' @param VERBOSE a logical vector for output to console.  Defaults to F.
 #' @keywords flex-grams
 #' @export
 #' @examples
@@ -26,9 +26,10 @@ if(missing(MINCOUNT))
 MINCOUNT <- floor(0.01*length(TEXT))
 if(MINCOUNT<2) MINCOUNT <- 2
 }
-gramList <- data.frame()
+if(missing(VERBOSE)) VERBOSE <- F 
 ###########################
 ### program starts here ###
+gramList <- data.frame()
 NVEC <- MAXN:MINN
 for(N in NVEC)
 {

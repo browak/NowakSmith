@@ -10,13 +10,13 @@ flexGramCount(TEXT, MAXN = NULL, MINN = NULL, MINCOUNT = NULL,
 \arguments{
 \item{TEXT}{a string vector}
 
-\item{MAXN}{the maximum number of unigrams allowed in a flexgram.  Defaults to 5}
+\item{MAXN}{the maximum number of unigrams allowed in a flexgram.  Defaults to 5.}
 
-\item{MINN}{the minimum number of unigrams allowed in a flexgram.  Defaults to 2}
+\item{MINN}{the minimum number of unigrams allowed in a flexgram.  Defaults to 2.}
 
-\item{MINCOUNT}{the minimum number of counts required for each flex-gram.  Defaults to min{floor(0.01*length(TEXT)) , 2}}
+\item{MINCOUNT}{the minimum number of counts required for each flex-gram.  Defaults to min(floor(0.01*length(TEXT)) , 2).}
 
-\item{VERBOSE}{a local vector for output to console}
+\item{VERBOSE}{a logical vector for output to console.  Defaults to F.}
 }
 \description{
 This function allows you to count flex grams given a string vector
