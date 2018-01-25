@@ -21,10 +21,9 @@ library(hedonicText)
 \noindent \pkg{hedonicText} cannot be installed using CRAN.
 
 \section{Data}
-\pkg{hedonicText} comes with a data set of 24,446 property transactions with sale price, square footage, and remarks.  The remarks are text descriptions of the proeprty created by the listing agent.  The data set can be loaded using
+\pkg{hedonicText} comes with a data set of 24,446 property transactions with sale price, square footage, and remarks.  The remarks are text descriptions of the property created by the listing agent.  The data set can be loaded using
 <<tidy=TRUE>>=
 data(listings)
-listings <- listings[1:1000,]
 str(listings)
 @
 
@@ -53,8 +52,8 @@ head(bigramCount)
 
 \noindent Trigrams contain even more information but occur even less frequently
 <<>>=
-bigramCount <- flexGramCount(cleanRemarks , maxN=3 , minN=3)
-head(bigramCount)
+trigramCount <- flexGramCount(cleanRemarks , maxN=3 , minN=3)
+head(trigramCount)
 @
 
 You can also identify a blend of n-grams for various n using
@@ -69,11 +68,22 @@ head(subset(flexgramCount , N==5) , n=3)
 \section{Hedonic Models}
 Using a given set of tokens, you can estimate a hedonic pricing model. First, you create a matrix of indicator variables for each of the tokens
 <<>>=
-tokenList <- bigramCount$ngrams
+tokenList <- unigramCount$ngrams
 M <- tokenMatrix(cleanRemarks , tokenList)
-head(colnames(M))
 str(M)
 @
 
+The tokens matrix can be used with additional regressors in a hedonic model.  The additional regressors are not penalized in the penalized regression.  The model is then estimated using a LASSO with a cross-validated penalty term.
+<<>>=
+y <- log(listings$price)
+X <- cbind(listings$sqft , listings$sqft**2)
+unigramFit <- hedonicWithText(y , X , M)
+@
+
+The coefficients for the tokens in the penalized regression can be extracted using
+<<>>=
+b <- coef(unigramFit , s='lambda.min')
+round(b , 3)
+@
 
 \end{document}

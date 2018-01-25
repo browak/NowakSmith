@@ -71,16 +71,15 @@ Using \pkg{devtools}, install \pkg{hedonicText}
 \noindent \pkg{hedonicText} cannot be installed using CRAN.
 
 \section{Data}
-\pkg{hedonicText} comes with a data set of 24,446 property transactions with sale price, square footage, and remarks.  The remarks are text descriptions of the proeprty created by the listing agent.  The data set can be loaded using
+\pkg{hedonicText} comes with a data set of 24,446 property transactions with sale price, square footage, and remarks.  The remarks are text descriptions of the property created by the listing agent.  The data set can be loaded using
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{data}\hlstd{(listings)}
-\hlstd{listings} \hlkwb{<-} \hlstd{listings[}\hlnum{1}\hlopt{:}\hlnum{1000}\hlstd{, ]}
 \hlkwd{str}\hlstd{(listings)}
 \end{alltt}
 \begin{verbatim}
-## 'data.frame':	1000 obs. of  3 variables:
+## 'data.frame':	24446 obs. of  3 variables:
 ## $ price : num 106300 65000 255000 129900 180000 ...
 ## $ sqft : int 1424 724 3040 1583 2571 2059 1379 1870 1870 2769 ...
 ## $ remarks: chr "RARE 4 BEDROOM HOME WITH FRESH PAINT IN & OUT. NEW LIGHT CARPET
@@ -111,7 +110,7 @@ The remarks in the data section are all capitalized, include letters, numbers, a
 \hlkwd{str}\hlstd{(cleanRemarks)}
 \end{alltt}
 \begin{verbatim}
-## chr [1:1000] "rare bedroom home fresh paint new light carpet vinyl plus dual
+## chr [1:24446] "rare bedroom home fresh paint new light carpet vinyl plus dual
 ##    pane windows taxes investors seller never occupied home" "house vacant
 ##    lockbox older home huge lot sold condition" "ll never need space newer light
 ##    neutral executive home acre ultra spacious rooms thruout rare car garage
@@ -147,13 +146,13 @@ You can also identify the most frequent n-grams in the data.  These n-grams can 
 \hlkwd{head}\hlstd{(unigramCount)}
 \end{alltt}
 \begin{verbatim}
-##    ngrams freq N
-## 1    home 1028 1
-## 2    room  719 1
-## 3 kitchen  687 1
-## 4    tile  489 1
-## 5     new  489 1
-## 6   great  486 1
+##    ngrams  freq N
+## 1    home 26218 1
+## 2    room 16375 1
+## 3 kitchen 15841 1
+## 4     new 13304 1
+## 5    tile 12422 1
+## 6   great 11942 1
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -167,12 +166,12 @@ You can also identify the most frequent n-grams in the data.  These n-grams can 
 \end{alltt}
 \begin{verbatim}
 ##             ngrams freq N
-## 1      family room  214 2
-## 2    covered patio  190 2
-## 3     ceiling fans  176 2
-## 4     ceramic tile  119 2
-## 5 vaulted ceilings  107 2
-## 6       floor plan  101 2
+## 1    covered patio 5229 2
+## 2     ceiling fans 4591 2
+## 3      family room 4405 2
+## 4     ceramic tile 3029 2
+## 5 vaulted ceilings 3016 2
+## 6       car garage 2407 2
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -181,17 +180,17 @@ You can also identify the most frequent n-grams in the data.  These n-grams can 
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{bigramCount} \hlkwb{<-} \hlkwd{flexGramCount}\hlstd{(cleanRemarks ,} \hlkwc{maxN}\hlstd{=}\hlnum{3} \hlstd{,} \hlkwc{minN}\hlstd{=}\hlnum{3}\hlstd{)}
-\hlkwd{head}\hlstd{(bigramCount)}
+\hlstd{trigramCount} \hlkwb{<-} \hlkwd{flexGramCount}\hlstd{(cleanRemarks ,} \hlkwc{maxN}\hlstd{=}\hlnum{3} \hlstd{,} \hlkwc{minN}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{head}\hlstd{(trigramCount)}
 \end{alltt}
 \begin{verbatim}
-##                  ngrams freq N
-## 1            cul de sac   67 3
-## 2            de sac lot   35 3
-## 3       open floor plan   28 3
-## 4    tile entry kitchen   28 3
-## 5     dual pane windows   26 3
-## 6 fireplace family room   25 3
+##                ngrams freq N
+## 1          cul de sac 1421 3
+## 2   dual pane windows  702 3
+## 3 large covered patio  684 3
+## 4     open floor plan  680 3
+## 5          de sac lot  668 3
+## 6   great curb appeal  516 3
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
@@ -209,28 +208,27 @@ You can also identify a blend of n-grams for various n using
 \hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{2}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##           ngrams freq N
-## 53  ceiling fans  176 2
-## 54 covered patio  139 2
-## 55   family room  111 2
+##              ngrams freq N
+## 35     ceiling fans 4261 2
+## 36    covered patio 4086 2
+## 37 vaulted ceilings 2695 2
 \end{verbatim}
 \begin{alltt}
 \hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{3}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-##              ngrams freq N
-## 6        cul de sac   32 3
-## 7   open floor plan   28 3
-## 8 dual pane windows   26 3
+##                ngrams freq N
+## 3          cul de sac  749 3
+## 4   dual pane windows  702 3
+## 5 large covered patio  684 3
 \end{verbatim}
 \begin{alltt}
 \hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{4}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{3}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
 ##                           ngrams freq N
-## 1                 cul de sac lot   35 4
-## 2 vaulted ceilings plant shelves   13 4
-## 3      leave message use lockbox   10 4
+## 1                 cul de sac lot  664 4
+## 2 vaulted ceilings plant shelves  321 4
 \end{verbatim}
 \begin{alltt}
 \hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{5}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{3}\hlstd{)}
@@ -247,25 +245,847 @@ Using a given set of tokens, you can estimate a hedonic pricing model. First, yo
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{tokenList} \hlkwb{<-} \hlstd{bigramCount}\hlopt{$}\hlstd{ngrams}
+\hlstd{tokenList} \hlkwb{<-} \hlstd{unigramCount}\hlopt{$}\hlstd{ngrams}
 \hlstd{M} \hlkwb{<-} \hlkwd{tokenMatrix}\hlstd{(cleanRemarks , tokenList)}
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Matrix}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in \{: task 1 failed - "{}object 'text2' not found"{}}}\begin{alltt}
-\hlkwd{head}\hlstd{(}\hlkwd{colnames}\hlstd{(M))}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in is.data.frame(x): object 'M' not found}}\begin{alltt}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Matrix}}\begin{alltt}
 \hlkwd{str}\hlstd{(M)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in str(M): object 'M' not found}}\end{kframe}
+\begin{verbatim}
+## Formal class 'ngCMatrix' [package "Matrix"] with 5 slots
+## ..@ i : int [1:1620657] 0 1 2 3 4 7 8 9 12 13 ...
+## ..@ p : int [1:790] 0 17019 32297 45084 54971 66866 76258 84822 94530 103553
+##    ...
+## ..@ Dim : int [1:2] 24446 789
+## ..@ Dimnames:List of 2
+## .. ..$ : NULL
+## .. ..$ : chr [1:789] "home" "room" "kitchen" "new" ...
+## ..@ factors : list()
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
+The tokens matrix can be used with additional regressors in a hedonic model.  The additional regressors are not penalized in the penalized regression.  The model is then estimated using a LASSO with a cross-validated penalty term.
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{y} \hlkwb{<-} \hlkwd{log}\hlstd{(listings}\hlopt{$}\hlstd{price)}
+\hlstd{X} \hlkwb{<-} \hlkwd{cbind}\hlstd{(listings}\hlopt{$}\hlstd{sqft , listings}\hlopt{$}\hlstd{sqft}\hlopt{**}\hlnum{2}\hlstd{)}
+\hlstd{unigramFit} \hlkwb{<-} \hlkwd{hedonicWithText}\hlstd{(y , X , M)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: glmnet}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loaded glmnet 2.0-13}}\end{kframe}
+\end{knitrout}
+
+The coefficients for the tokens in the penalized regression can be extracted using
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{b} \hlkwb{<-} \hlkwd{coef}\hlstd{(unigramFit ,} \hlkwc{s}\hlstd{=}\hlstr{'lambda.min'}\hlstd{)}
+\hlkwd{round}\hlstd{(b ,} \hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 792 x 1 sparse Matrix of class "dgCMatrix"
+##                     1
+## (Intercept)    10.910
+##                 0.001
+##                 0.000
+## home            .    
+## room           -0.001
+## kitchen         .    
+## new            -0.009
+## tile            0.019
+## great           0.015
+## large          -0.008
+## patio           0.003
+## pool            0.054
+## master          .    
+## area            .    
+## family         -0.021
+## call            0.002
+## carpet          .    
+## back            0.002
+## lot             .    
+## yard            .    
+## garage          0.011
+## cabinets        .    
+## bedroom         .    
+## rm              .    
+## covered         .    
+## fans           -0.001
+## ceiling         .    
+## bath            .    
+## front           .    
+## open            0.006
+## huge           -0.015
+## fireplace       0.003
+## show            0.004
+## nice           -0.020
+## beautiful       0.005
+## upgraded        .    
+## lots            .    
+## please          .    
+## living          .    
+## backyard        0.006
+## owner           .    
+## built           0.006
+## ceilings        0.015
+## dining          .    
+## will            0.000
+## vaulted         .    
+## storage        -0.001
+## system          0.000
+## water           0.012
+## custom          0.027
+## entry           .    
+## walk            .    
+## neutral         0.003
+## paint          -0.005
+## floor           .    
+## bedrooms        .    
+## newer           .    
+## gas             0.011
+## one             .    
+## doors           .    
+## ceramic        -0.015
+## block          -0.023
+## window          0.002
+## closet          .    
+## door            .    
+## baths           .    
+## laundry        -0.011
+## house           .    
+## seller         -0.013
+## close           .    
+## plan            0.013
+## car             .    
+## views           0.079
+## wood            0.004
+## buyer           .    
+## spacious        0.000
+## light           0.020
+## inside          .    
+## den             .    
+## island          .    
+## windows         .    
+## rv              .    
+## security        .    
+## spa             .    
+## tub             .    
+## lockbox         .    
+## split           0.016
+## formal         -0.008
+## location        0.024
+## roof           -0.012
+## showing         .    
+## use             .    
+## price           .    
+## must            .    
+## well            0.002
+## flooring        0.007
+## features        .    
+## bar             .    
+## throughout      0.010
+## landscaping     0.012
+## breakfast       .    
+## plus            .    
+## see             .    
+## oak            -0.010
+## neighborhood    .    
+## eat             .    
+## private         0.042
+## floorplan       0.007
+## ready          -0.001
+## office          0.006
+## extra           .    
+## pantry         -0.009
+## property       -0.002
+## full            .    
+## trees           0.000
+## just            .    
+## shows           0.003
+## play            .    
+## bay             .    
+## gorgeous        .    
+## gate            .    
+## upgrades        0.014
+## easy            .    
+## shower          0.005
+## remodeled       .    
+## painted         0.000
+## blinds          .    
+## like            0.006
+## big            -0.014
+## bright          0.007
+## appliances      0.011
+## sell           -0.003
+## leave           .    
+## model           0.006
+## ft              .    
+## shelves         .    
+## floors          0.039
+## clean           .    
+## fenced         -0.002
+## desert          0.018
+## bdrm            .    
+## br              .    
+## corner          0.000
+## schools         .    
+## double          .    
+## community       .    
+## interior        0.010
+## separate        .    
+## move            .    
+## vacant          .    
+## park            0.000
+## th              .    
+## brick          -0.010
+## grass           .    
+## perfect         0.010
+## two             .    
+## shutters        0.055
+## kit             .    
+## buyers          .    
+## rear            .    
+## can             .    
+## suite           .    
+## wonderful       0.028
+## extended        .    
+## side            .    
+## thanks          .    
+## rooms          -0.011
+## first           .    
+## many            0.000
+## agent           .    
+## dual            .    
+## title          -0.018
+## tiled           .    
+## mountain        0.027
+## sq              .    
+## condition       .    
+## old            -0.001
+## dryer           .    
+## sac             .    
+## priced         -0.013
+## lg              .    
+## cul             0.012
+## also            .    
+## thru            .    
+## quiet           0.004
+## shopping        .    
+## golf            0.040
+## de              0.018
+## landscaped      0.015
+## good           -0.008
+## lovely          .    
+## french          0.012
+## sink            .    
+## fence          -0.010
+## don             .    
+## washer          .    
+## convey          .    
+## top             .    
+## stove          -0.009
+## dog             .    
+## offers          .    
+## parking        -0.036
+## sinks          -0.002
+## offer          -0.004
+## much            .    
+## white           .    
+## heat            .    
+## wall            .    
+## range          -0.007
+## mature          .    
+## closets         .    
+## center          0.004
+## counter         .    
+## located         0.003
+## evap           -0.021
+## counters        0.013
+## owners          .    
+## heater         -0.013
+## glass           0.027
+## areas           .    
+## maintained      .    
+## work           -0.012
+## appeal          .    
+## berber          .    
+## included        .    
+## shed           -0.009
+## wow            -0.002
+## curb            .    
+## space           .    
+## fam            -0.005
+## mstr            .    
+## low             .    
+## homes           0.002
+## school         -0.006
+## sale           -0.002
+## view            0.037
+## plant           .    
+## countertops     .    
+## north           0.003
+## dishwasher      .    
+## diving         -0.017
+## microwave      -0.004
+## oversized       .    
+## lush            0.022
+## south           0.008
+## maple           0.017
+## sold           -0.023
+## pebble          0.009
+## super           .    
+## make           -0.004
+## garden          .    
+## right           .    
+## access          .    
+## heated          0.022
+## size            0.000
+## cozy            .    
+## popular         .    
+## acre            0.085
+## citrus         -0.003
+## ac              0.006
+## last            .    
+## high            0.024
+## refrigerator    .    
+## updated         .    
+## pane            .    
+## colors          .    
+## contract        .    
+## sparkling       .    
+## guest           0.039
+## lister          .    
+## immaculate      .    
+## bring          -0.001
+## granite         0.151
+## outside         .    
+## used            .    
+## excellent       .    
+## level           .    
+## message         0.003
+## course          0.012
+## plantation      .    
+## street          .    
+## tops            0.004
+## include         .    
+## sharp           .    
+## carpeting       .    
+## st              0.005
+## ba              .    
+## exposure        .    
+## year           -0.001
+## waterfall       .    
+## exterior        .    
+## fresh          -0.001
+## workshop       -0.007
+## best            0.027
+## go              .    
+## lighting        0.012
+## sep             .    
+## sound           0.004
+## entertainment   0.004
+## bed            -0.010
+## hot             .    
+## grassy          .    
+## landscape       .    
+## corian          0.064
+## fabulous        0.026
+## love            .    
+## unit           -0.011
+## loft           -0.038
+## warranty        .    
+## needs          -0.047
+## construction    .    
+## bbq             0.032
+## need           -0.019
+## quick           .    
+## box             .    
+## card           -0.005
+## freshly        -0.001
+## near            .    
+## enjoy           .    
+## plenty          .    
+## lock            .    
+## beautifully     .    
+## single          0.018
+## years           .    
+## including       .    
+## yrs             .    
+## replaced       -0.014
+## time            .    
+## look            .    
+## recently        .    
+## surround        0.022
+## won             .    
+## pride           .    
+## pre             .    
+## bdrms           .    
+## available       0.014
+## energy          .    
+## seperate        .    
+## installed       .    
+## done            .    
+## lr              0.002
+## nook            .    
+## rd              0.001
+## set             0.006
+## charming        .    
+## az             -0.018
+## opens           0.025
+## brand           .    
+## city            0.007
+## sized           .    
+## stone           0.049
+## flagstone       0.011
+## cabs            .    
+## hm              .    
+## approx          .    
+## sellers         .    
+## includes        0.009
+## value           .    
+## oven            .    
+## now             .    
+## lights          .    
+## quality         .    
+## verify         -0.018
+## find            .    
+## soft            .    
+## bathrooms       .    
+## ownership       .    
+## care            .    
+## hurry           .    
+## upstairs        .    
+## may             .    
+## reduced         .    
+## carport        -0.031
+## stay            .    
+## raised          .    
+## thank           .    
+## tons           -0.014
+## wired           .    
+## phone           .    
+## green           .    
+## hall            .    
+## etc             .    
+## bonus          -0.026
+## deck            0.003
+## saltillo        0.033
+## fixtures        0.066
+## tec             0.019
+## yr              .    
+## sitting         .    
+## added          -0.016
+## sales           .    
+## ranch           0.033
+## kids            .    
+## original        0.029
+## traffic         .    
+## micro           .    
+## entertaining    0.001
+## privacy         0.038
+## escrow         -0.009
+## miss            .    
+## info            .    
+## fantastic       .    
+## exit            .    
+## check           .    
+## sun             .    
+## pump           -0.011
+## dogs            .    
+## small           .    
+## bd              .    
+## let             .    
+## pad             .    
+## cov             .    
+## hoa             .    
+## lrg             .    
+## dr              .    
+## utility        -0.007
+## way             .    
+## looking         .    
+## downstairs      .    
+## fr              .    
+## premium         0.006
+## story           .    
+## panel           .    
+## looks           .    
+## nd              0.007
+## com             .    
+## long            .    
+## fp              0.043
+## hud             0.000
+## gated           0.055
+## cabinetry       .    
+## bathroom        .    
+## every           0.004
+## plumbing        .    
+## absolutely      .    
+## pls             .    
+## mtn             0.015
+## almost         -0.003
+## sunscreens      .    
+## dbl             .    
+## cool           -0.026
+## slab            .    
+## fruit           .    
+## buy            -0.008
+## everything      .    
+## walls           0.017
+## alarm           .    
+## special         0.001
+## arizona        -0.026
+## touches         .    
+## professionally  .    
+## backs           0.010
+## extensive       .    
+## central         0.009
+## starter         .    
+## friendly        .    
+## notice          0.011
+## style           0.016
+## information     .    
+## gourmet         0.008
+## desk            .    
+## around          .    
+## motivated       .    
+## lake            .    
+## awesome         .    
+## fee             .    
+## mirrored        .    
+## maintenance     .    
+## line            .    
+## lived           .    
+## softener        .    
+## better          0.003
+## note            .    
+## fast            .    
+## balcony        -0.048
+## nicely          .    
+## ll              0.001
+## air            -0.020
+## www             .    
+## wet             .    
+## fan            -0.005
+## copper          0.036
+## opener         -0.025
+## three           0.000
+## overlooking     0.026
+## extras          .    
+## cute            .    
+## loads           .    
+## place           .    
+## give            .    
+## subdivision     .    
+## mbr             .    
+## greatroom       0.020
+## pm              .    
+## square          .    
+## freeway         .    
+## beauty          .    
+## coverings       .    
+## sys             .    
+## country         .    
+## details         .    
+## list            0.007
+## behind          .    
+## listing        -0.010
+## hardwood        0.038
+## base           -0.008
+## tennis          0.007
+## complete        0.004
+## market          .    
+## ground          .    
+## courtyard       0.030
+## treatments      0.012
+## newly           .    
+## paid            .    
+## builder         0.001
+## highly          .    
+## larger          0.011
+## auto            .    
+## natural         0.026
+## decor           0.002
+## sec             .    
+## stunning        .    
+## overlooks       .    
+## resort          0.033
+## little          .    
+## desirable       0.002
+## solid           .    
+## cleaning        .    
+## electric        .    
+## main            .    
+## parks           .    
+## plush          -0.014
+## add             .    
+## loop            .    
+## refrig          .    
+## agents         -0.007
+## cable           .    
+## patios          0.033
+## visit           .    
+## footage         .    
+## date            .    
+## sprinklers      .    
+## smooth          .    
+## porch          -0.002
+## enclosed       -0.020
+## additional      0.019
+## walking        -0.004
+## real            .    
+## spds           -0.065
+## bedrm          -0.002
+## gar             .    
+## places          .    
+## american       -0.002
+## watering       -0.012
+## never           .    
+## ins             .    
+## marble          .    
+## allowance       .    
+## entrance       -0.008
+## dramatic        .    
+## pot             .    
+## game           -0.081
+## stays           .    
+## fencing         .    
+## eating          .    
+## shade           .    
+## thruout         .    
+## convenient      .    
+## rock            .    
+## incl            0.006
+## fountain        0.018
+## less            0.008
+## away            .    
+## vinyl          -0.029
+## converted       .    
+## red             .    
+## come            .    
+## kept            .    
+## cared           .    
+## bid            -0.132
+## liv             .    
+## greenbelt       .    
+## horse           0.072
+## solar          -0.001
+## seer            .    
+## efficient       .    
+## softner         .    
+## spectacular     0.033
+## blt             .    
+## skylights       .    
+## designer        0.018
+## incredible      0.021
+## want            .    
+## coe             .    
+## incentives      .    
+## arcadia         0.015
+## niches          0.004
+## insulation      .    
+## lb              0.024
+## across          .    
+## court           .    
+## dream           .    
+## cooler          .    
+## completely      .    
+## sprinkler       .    
+## yd              .    
+## wash            .    
+## elegant         .    
+## enter           0.016
+## makes           .    
+## travertine      0.088
+## rec            -0.008
+## decorated       .    
+## always          .    
+## still           .    
+## district        0.035
+## yards           .    
+## closing        -0.014
+## really          .    
+## loaded          .    
+## speakers        0.021
+## comps           .    
+## tech           -0.003
+## recent          .    
+## even            .    
+## rms             .    
+## decorator       .    
+## sf              .    
+## feel            0.019
+## get             .    
+## soaring         0.007
+## walkin          .    
+## capital        -0.003
+## questions      -0.003
+## valley          0.058
+## end             .    
+## appraisal      -0.010
+## opportunity     .    
+## co              0.001
+## commission      0.033
+## amenities       .    
+## measurements    .    
+## concrete        .    
+## dish            .    
+## unique          .    
+## take            .    
+## galore          .    
+## clients         .    
+## next            0.003
+## fully           0.003
+## tv              .    
+## re              .    
+## fees           -0.079
+## terrific        .    
+## scottsdale      0.126
+## expanded        0.001
+## preview         .    
+## process        -0.038
+## ago             .    
+## remodel         .    
+## mountains       0.012
+## cooktop         0.013
+## screens         .    
+## pull            .    
+## repairs        -0.033
+## per             0.000
+## foyer           .    
+## self            .    
+## submit          .    
+## distance        .    
+## today           .    
+## kitch           .    
+## facing          .    
+## attic           .    
+## letter         -0.003
+## cooling         .    
+## mall            .    
+## sunken         -0.009
+## currently       .    
+## tree            .    
+## finished        .    
+## recessed        0.023
+## truly           .    
+## east            .    
+## prior          -0.024
+## wide            .    
+## feature         .    
+## paradise        0.032
+## tempe           0.029
+## west            .    
+## lender         -0.023
+## lite            .    
+## put             .    
+## totally         .    
+## service         .    
+## outstanding     .    
+## iron            .    
+## appointment     0.016
+## hallway         .    
+## wants           .    
+## write          -0.024
+## computer       -0.001
+## answer          .    
+## vanity          .    
+## fire            0.013
+## four            .    
+## ext             .    
+## screened       -0.021
+## contracts      -0.031
+## estate          .    
+## approval       -0.002
+## drive           0.011
+## stucco          .    
+## wait            .    
+## outdoor         0.035
+## disposal       -0.005
+## run             .    
+## day             .    
+## osmosis         .    
+## ez              .    
+## lv              .    
+## hard            0.004
+## detached        0.017
+## lakes           .    
+## easily          .    
+## conveys         .    
+## honey           .    
+## accepted        .    
+## din             .    
+## xtra           -0.003
+## jacuzzi         .    
+## acres           0.058
+## brkfst          .    
+## charm           0.053
+## color           0.000
+## irrigated       .    
+## purchase        0.007
+## cabinet         .    
+## except          .    
+## addition        .    
+## carpets         .    
+## without         .    
+## pebbletec       .    
+## daily           .    
+## potential      -0.024
+## order           .    
+## vaults          .    
+## airy            .    
+## redone          .    
+## drip            .    
+## common          .    
+## true            0.011
+## fridge          .    
+## site            0.004
+## elementary      .    
+## leads           .    
+## ideal           .    
+## pending         0.018
+## club            0.016
+## skylight       -0.012
+## reverse         .    
+## within          .    
+## former          .    
+## possible        .    
+## screen          .    
+## due             .    
+## pay             .    
+## stairs         -0.027
+## trim            .    
+## preserve        0.038
+## ro              .    
+## gazebo          .    
+## neat            .    
+## boat            0.009
+## state           0.016
+## foot            .    
+## subject         .    
+## figures         .    
+## furniture       .    
+## neighbors       .    
+## mesa            .    
+## deep            .    
+## broke          -0.020
+## children        .    
+## fix            -0.086
+## leading         .    
+## loan           -0.020
+## shop            .    
+## money          -0.063
+## enough          .    
+## everywhere      .    
+## completed       .
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 \end{document}
