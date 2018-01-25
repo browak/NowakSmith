@@ -49,7 +49,8 @@
 \newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
 
 \usepackage{alltt}
-\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
+\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}} 
+\usepackage{listings}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
@@ -62,17 +63,208 @@ Using \pkg{devtools}, install \pkg{hedonicText}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{library}\hlstd{(devtools)}
-\hlkwd{install_github}\hlstd{(}\hlstr{"browak/NowakSmith/hedonicText"}\hlstd{)}
+\hlkwd{install_github}\hlstd{(}\hlstr{"browak/NowakSmith/hedonicText"} \hlstd{,} \hlkwc{quiet}\hlstd{=T)}
+\hlkwd{library}\hlstd{(hedonicText)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\noindent \pkg{hedonicText} cannot be installed using CRAN.
+
+\section{Data}
+\pkg{hedonicText} comes with a data set of 24,446 property transactions with sale price, square footage, and remarks.  The remarks are text descriptions of the proeprty created by the listing agent.  The data set can be loaded using
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{data}\hlstd{(listings)}
+\hlstd{listings} \hlkwb{<-} \hlstd{listings[}\hlnum{1}\hlopt{:}\hlnum{1000}\hlstd{, ]}
+\hlkwd{str}\hlstd{(listings)}
+\end{alltt}
+\begin{verbatim}
+## 'data.frame':	1000 obs. of  3 variables:
+## $ price : num 106300 65000 255000 129900 180000 ...
+## $ sqft : int 1424 724 3040 1583 2571 2059 1379 1870 1870 2769 ...
+## $ remarks: chr "RARE 4 BEDROOM HOME WITH FRESH PAINT IN & OUT. NEW LIGHT CARPET
+##    AND VINYL PLUS DUAL PANE WINDOWS. TAXES ARE INV"| __truncated__
+##    "********************HOUSE IS VACANT - ON
+##    LOCKBOX!!!!!!!************************* ************************OLDER "|
+##    __truncated__ "YOU'LL NEVER NEED MORE SPACE THAN THIS NEWER LIGHT & NEUTRAL
+##    EXECUTIVE HOME ON OVER 1/4 ACRE WITH ULTRA SPACIOU"| __truncated__ "GREAT
+##    REMODEL WITH TONS OF FEATURES! KITCHEN REMODELED 3 YRS AGO ALONG WITH NEW
+##    HEAT/AC. ROOF 1 YR, WATERHEATER"| __truncated__ ...
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\section{Functions}
+The remarks in the data section are all capitalized, include letters, numbers, and non alpha-numeric characters.  \pkg{hedonicText} includes a basic function, \pkg{cleanText}, to clean the text.  Of course, you can always clean the text yourself.  
+
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{cleanRemarks} \hlkwb{<-} \hlkwd{cleanText}\hlstd{(listings}\hlopt{$}\hlstd{remarks)}
 \end{alltt}
 
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Downloading GitHub repo browak/NowakSmith@master\\\#\# from URL https://api.github.com/repos/browak/NowakSmith/zipball/master}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: tm}}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Installing hedonicText}}
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: NLP}}\begin{alltt}
+\hlkwd{str}\hlstd{(cleanRemarks)}
+\end{alltt}
+\begin{verbatim}
+## chr [1:1000] "rare bedroom home fresh paint new light carpet vinyl plus dual
+##    pane windows taxes investors seller never occupied home" "house vacant
+##    lockbox older home huge lot sold condition" "ll never need space newer light
+##    neutral executive home acre ultra spacious rooms thruout rare car garage
+##    real p"| __truncated__ "great remodel tons features kitchen remodeled yrs
+##    ago along new heat ac roof yr waterheater softner huge loft b"|
+##    __truncated__ ...
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# '/Library/Frameworks/R.framework/Resources/bin/R'\ \ \textbackslash{}\\\#\#\ \  --no-site-file --no-environ --no-save\ \ \textbackslash{}\\\#\#\ \  --no-restore --quiet CMD INSTALL\ \ \textbackslash{}\\\#\#\ \  '/private/var/folders/wg/z816z1dj1ng69607ynh079q40000gn/T/RtmpILfiho/devtools276e1e9a84ae/browak-NowakSmith-a51d09c/hedonicText'\ \ \textbackslash{}\\\#\#\ \  --library='/Library/Frameworks/R.framework/Versions/3.4/Resources/library'\ \ \textbackslash{}\\\#\#\ \  --install-tests}}
+By default, \pkg{cleanText} will convert all text to lowercase, remove numbers, remove punctuation, remove stop words, and remove single letters.  The list of stop words comes from the list of stopwords in the \pkg{tm} package.
 
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# }}\end{kframe}
+You can also identify the most frequent n-grams in the data.  These n-grams can be used to tokenize the text.  This is done using the \pkg{flexGramCount} function.  The most frequent unigrams are found using
+
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{unigramCount} \hlkwb{<-} \hlkwd{flexGramCount}\hlstd{(cleanRemarks ,} \hlkwc{maxN}\hlstd{=}\hlnum{1} \hlstd{,} \hlkwc{minN}\hlstd{=}\hlnum{1}\hlstd{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: ngram}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: doParallel}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: foreach}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: iterators}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: parallel}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: stringi}}\begin{alltt}
+\hlkwd{head}\hlstd{(unigramCount)}
+\end{alltt}
+\begin{verbatim}
+##    ngrams freq N
+## 1    home 1028 1
+## 2    room  719 1
+## 3 kitchen  687 1
+## 4    tile  489 1
+## 5     new  489 1
+## 6   great  486 1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\noindent Bigrams contain more detailed information but occur less frequently
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{bigramCount} \hlkwb{<-} \hlkwd{flexGramCount}\hlstd{(cleanRemarks ,} \hlkwc{maxN}\hlstd{=}\hlnum{2} \hlstd{,} \hlkwc{minN}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{head}\hlstd{(bigramCount)}
+\end{alltt}
+\begin{verbatim}
+##             ngrams freq N
+## 1      family room  214 2
+## 2    covered patio  190 2
+## 3     ceiling fans  176 2
+## 4     ceramic tile  119 2
+## 5 vaulted ceilings  107 2
+## 6       floor plan  101 2
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\noindent Trigrams contain even more information but occur even less frequently
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{bigramCount} \hlkwb{<-} \hlkwd{flexGramCount}\hlstd{(cleanRemarks ,} \hlkwc{maxN}\hlstd{=}\hlnum{3} \hlstd{,} \hlkwc{minN}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{head}\hlstd{(bigramCount)}
+\end{alltt}
+\begin{verbatim}
+##                  ngrams freq N
+## 1            cul de sac   67 3
+## 2            de sac lot   35 3
+## 3       open floor plan   28 3
+## 4    tile entry kitchen   28 3
+## 5     dual pane windows   26 3
+## 6 fireplace family room   25 3
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+You can also identify a blend of n-grams for various n using
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{flexgramCount} \hlkwb{<-} \hlkwd{flexGramCount}\hlstd{(cleanRemarks ,} \hlkwc{maxN}\hlstd{=}\hlnum{5} \hlstd{,} \hlkwc{minN}\hlstd{=}\hlnum{2}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] "no 5-grams found with frequency larger than minCount. Skipping to 4-grams"
+\end{verbatim}
+\begin{alltt}
+\hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{2}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##           ngrams freq N
+## 53  ceiling fans  176 2
+## 54 covered patio  139 2
+## 55   family room  111 2
+\end{verbatim}
+\begin{alltt}
+\hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{3}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##              ngrams freq N
+## 6        cul de sac   32 3
+## 7   open floor plan   28 3
+## 8 dual pane windows   26 3
+\end{verbatim}
+\begin{alltt}
+\hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{4}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+##                           ngrams freq N
+## 1                 cul de sac lot   35 4
+## 2 vaulted ceilings plant shelves   13 4
+## 3      leave message use lockbox   10 4
+\end{verbatim}
+\begin{alltt}
+\hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{5}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{3}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## [1] ngrams freq   N     
+## <0 rows> (or 0-length row.names)
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\section{Hedonic Models}
+Using a given set of tokens, you can estimate a hedonic pricing model. First, you create a matrix of indicator variables for each of the tokens
+\begin{knitrout}\footnotesize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlstd{tokenList} \hlkwb{<-} \hlstd{bigramCount}\hlopt{$}\hlstd{ngrams}
+\hlstd{M} \hlkwb{<-} \hlkwd{tokenMatrix}\hlstd{(cleanRemarks , tokenList)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: Matrix}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in \{: task 1 failed - "{}object 'text2' not found"{}}}\begin{alltt}
+\hlkwd{head}\hlstd{(}\hlkwd{colnames}\hlstd{(M))}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in is.data.frame(x): object 'M' not found}}\begin{alltt}
+\hlkwd{str}\hlstd{(M)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in str(M): object 'M' not found}}\end{kframe}
 \end{knitrout}
 
 

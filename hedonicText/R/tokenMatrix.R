@@ -22,7 +22,7 @@ matrixList <- foreach(i = 1:length(TOKENLIST)) %do%
 {
 TOKEN <- TOKENLIST[i]
 if(i%%tokenREPORT==0 & verbose) print(paste0("on ",i," of ",length(TOKENLIST)))
-it  <- grep(TOKEN,text2)
+it  <- grep(TOKEN,TEXT)
 it <- unique(it)
 it
 }
