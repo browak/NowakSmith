@@ -1,0 +1,22 @@
+\documentclass{article}
+\newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}} 
+
+\begin{document}
+
+<<setup, echo=FALSE , include=FALSE>>=
+library(knitr)
+library(texreg)
+opts_chunk$set(size = 'footnotesize')
+options(width = 50 , tidy=T ,str = strOptions(strict.width = "wrap") ,warn=-1)
+@
+
+
+\section{Installing \pkg{hedonicText}}
+Using \pkg{devtools}, install \pkg{hedonicText}
+<<>>=
+library(devtools)
+install_github("browak/NowakSmith/hedonicText")
+@
+
+
+\end{document}
