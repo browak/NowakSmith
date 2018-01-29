@@ -12,10 +12,11 @@ options(width = 80 , tidy=T ,str = strOptions(strict.width = "wrap") ,warn=-1)
 
 
 \section{Installing \pkg{hedonicText}}
-Using \pkg{devtools}, install \pkg{hedonicText}
+Using \pkg{devtools}, install \pkg{hedonicText}.  You will also need the \pkg{ngram} package
 <<>>=
 library(devtools)
 install_github("browak/NowakSmith/hedonicText" , quiet=T)
+install.packages("ngram", repos = "http://cran.us.r-project.org")
 library(hedonicText)
 @
 \noindent \pkg{hedonicText} cannot be installed using CRAN.
@@ -24,7 +25,6 @@ library(hedonicText)
 \pkg{hedonicText} comes with a data set of 24,446 property transactions with sale price, square footage, and remarks.  The remarks are text descriptions of the property created by the listing agent.  The data set can be loaded using
 <<tidy=TRUE>>=
 data(listings)
-listings <- listings
 str(listings)
 @
 

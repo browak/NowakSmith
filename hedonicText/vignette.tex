@@ -58,12 +58,20 @@
 
 
 \section{Installing \pkg{hedonicText}}
-Using \pkg{devtools}, install \pkg{hedonicText}
+Using \pkg{devtools}, install \pkg{hedonicText}.  You will also need the \pkg{ngram} package
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{library}\hlstd{(devtools)}
 \hlkwd{install_github}\hlstd{(}\hlstr{"browak/NowakSmith/hedonicText"} \hlstd{,} \hlkwc{quiet}\hlstd{=T)}
+\hlkwd{install.packages}\hlstd{(}\hlstr{"ngram"}\hlstd{,} \hlkwc{repos} \hlstd{=} \hlstr{"http://cran.us.r-project.org"}\hlstd{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## The downloaded binary packages are in
+## 	/var/folders/wg/z816z1dj1ng69607ynh079q40000gn/T//RtmpSxZqAo/downloaded_packages
+\end{verbatim}
+\begin{alltt}
 \hlkwd{library}\hlstd{(hedonicText)}
 \end{alltt}
 \end{kframe}
@@ -76,7 +84,6 @@ Using \pkg{devtools}, install \pkg{hedonicText}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{data}\hlstd{(listings)}
-\hlstd{listings} \hlkwb{<-} \hlstd{listings}
 \hlkwd{str}\hlstd{(listings)}
 \end{alltt}
 \begin{verbatim}
@@ -288,16 +295,16 @@ The coefficients for the tokens in the penalized regression can be extracted usi
 \end{alltt}
 \begin{verbatim}
 ##         token coefficient
-## 1     granite       0.155
-## 2         bid      -0.125
-## 3  scottsdale       0.123
-## 4  travertine       0.086
+## 1     granite       0.154
+## 2         bid      -0.127
+## 3  scottsdale       0.124
+## 4  travertine       0.087
 ## 5        acre       0.085
-## 6       views       0.083
-## 7        game      -0.076
-## 8        fees      -0.074
-## 9         fix      -0.068
-## 10      horse       0.067
+## 6       views       0.082
+## 7        game      -0.078
+## 8        fees      -0.076
+## 9         fix      -0.075
+## 10      horse       0.069
 \end{verbatim}
 \end{kframe}
 \end{knitrout}
