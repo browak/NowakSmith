@@ -24,6 +24,7 @@ library(hedonicText)
 \pkg{hedonicText} comes with a data set of 24,446 property transactions with sale price, square footage, and remarks.  The remarks are text descriptions of the property created by the listing agent.  The data set can be loaded using
 <<tidy=TRUE>>=
 data(listings)
+listings <- listings
 str(listings)
 @
 

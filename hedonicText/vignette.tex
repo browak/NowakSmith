@@ -76,6 +76,7 @@ Using \pkg{devtools}, install \pkg{hedonicText}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlkwd{data}\hlstd{(listings)}
+\hlstd{listings} \hlkwb{<-} \hlstd{listings}
 \hlkwd{str}\hlstd{(listings)}
 \end{alltt}
 \begin{verbatim}
@@ -290,15 +291,22 @@ The coefficients for the tokens in the penalized regression can be extracted usi
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{tokenDataFrame} \hlkwb{<-} \hlkwd{tokenTable}\hlstd{(bFit)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in tokenTable(bFit): could not find function "{}tokenTable"{}}}\begin{alltt}
 \hlkwd{head}\hlstd{(tokenDataFrame ,} \hlkwc{n}\hlstd{=}\hlnum{10}\hlstd{)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in head(tokenDataFrame, n = 10): object 'tokenDataFrame' not found}}\end{kframe}
+\begin{verbatim}
+##         token coefficient
+## 1     granite       0.155
+## 2         bid      -0.125
+## 3  scottsdale       0.123
+## 4  travertine       0.086
+## 5        acre       0.085
+## 6       views       0.083
+## 7        game      -0.076
+## 8        fees      -0.074
+## 9         fix      -0.068
+## 10      horse       0.067
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 \end{document}
