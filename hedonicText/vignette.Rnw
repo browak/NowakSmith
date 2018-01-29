@@ -59,10 +59,10 @@ head(trigramCount)
 
 You can also identify a blend of n-grams for various n using
 <<>>=
-flexgramCount <- flexGramCount(cleanRemarks , maxN=5 , minN=2)
-head(subset(flexgramCount , N==2) , n=3)
-head(subset(flexgramCount , N==3) , n=3)
-head(subset(flexgramCount , N==4) , n=4)
+flexgramCount <- flexGramCount(cleanRemarks , maxN=4 , minN=2)
+head(subset(flexgramCount , N==2) , n=2)
+head(subset(flexgramCount , N==3) , n=2)
+head(subset(flexgramCount , N==4) , n=2)
 @
 
 \section{Hedonic Models}

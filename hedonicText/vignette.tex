@@ -200,31 +200,24 @@ You can also identify a blend of n-grams for various n using
 \begin{knitrout}\footnotesize
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlstd{flexgramCount} \hlkwb{<-} \hlkwd{flexGramCount}\hlstd{(cleanRemarks ,} \hlkwc{maxN}\hlstd{=}\hlnum{5} \hlstd{,} \hlkwc{minN}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlstd{flexgramCount} \hlkwb{<-} \hlkwd{flexGramCount}\hlstd{(cleanRemarks ,} \hlkwc{maxN}\hlstd{=}\hlnum{4} \hlstd{,} \hlkwc{minN}\hlstd{=}\hlnum{2}\hlstd{)}
+\hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{2}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{2}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] "no 5-grams found with frequency larger than minCount. Skipping to 4-grams"
+##           ngrams freq N
+## 35  ceiling fans 4261 2
+## 36 covered patio 4086 2
 \end{verbatim}
 \begin{alltt}
-\hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{2}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{3}\hlstd{)}
+\hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{3}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{2}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
 ##              ngrams freq N
-## 35     ceiling fans 4261 2
-## 36    covered patio 4086 2
-## 37 vaulted ceilings 2695 2
+## 3        cul de sac  749 3
+## 4 dual pane windows  702 3
 \end{verbatim}
 \begin{alltt}
-\hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{3}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{3}\hlstd{)}
-\end{alltt}
-\begin{verbatim}
-##                ngrams freq N
-## 3          cul de sac  749 3
-## 4   dual pane windows  702 3
-## 5 large covered patio  684 3
-\end{verbatim}
-\begin{alltt}
-\hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{4}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{4}\hlstd{)}
+\hlkwd{head}\hlstd{(}\hlkwd{subset}\hlstd{(flexgramCount , N}\hlopt{==}\hlnum{4}\hlstd{) ,} \hlkwc{n}\hlstd{=}\hlnum{2}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
 ##                           ngrams freq N

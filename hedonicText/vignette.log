@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  29 JAN 2018 14:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.5.22)  29 JAN 2018 14:35
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -287,22 +287,17 @@ Package color Info: Redefining color shadecolor on input line 163.
 Package color Info: Redefining color shadecolor on input line 182.
 Package color Info: Redefining color shadecolor on input line 201.
 
-Overfull \hbox (3.505pt too wide) in paragraph at lines 207--207
-[]\OT1/cmtt/m/n/8 ## [1] "no 5-grams found with frequency larger than minCount.
- Skipping to 4-grams"[] 
- []
-
 [2]
-Package color Info: Redefining color shadecolor on input line 240.
-Package color Info: Redefining color shadecolor on input line 266.
+Package color Info: Redefining color shadecolor on input line 233.
+Package color Info: Redefining color shadecolor on input line 259.
+Package color Info: Redefining color shadecolor on input line 274.
  [3]
-Package color Info: Redefining color shadecolor on input line 281.
-Package color Info: Redefining color shadecolor on input line 291.
+Package color Info: Redefining color shadecolor on input line 284.
  [4] (./vignette.aux) ) 
 Here is how much of TeX's memory you used:
  3230 strings out of 493014
  47069 string characters out of 6133351
- 112799 words of memory out of 5000000
+ 111799 words of memory out of 5000000
  6754 multiletter control sequences out of 15000+600000
  5500 words of font info for 21 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -313,7 +308,7 @@ fonts/cm/cmbx12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmitt10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmtt8.pfb>
-Output written on vignette.pdf (4 pages, 70286 bytes).
+Output written on vignette.pdf (4 pages, 70131 bytes).
 PDF statistics:
  37 PDF objects out of 1000 (max. 8388607)
  25 compressed objects within 1 object stream
