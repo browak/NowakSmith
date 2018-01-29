@@ -61,8 +61,7 @@ You can also identify a blend of n-grams for various n using
 flexgramCount <- flexGramCount(cleanRemarks , maxN=5 , minN=2)
 head(subset(flexgramCount , N==2) , n=3)
 head(subset(flexgramCount , N==3) , n=3)
-head(subset(flexgramCount , N==4) , n=3)
-head(subset(flexgramCount , N==5) , n=3)
+head(subset(flexgramCount , N==4) , n=4)
 @
 
 \section{Hedonic Models}
@@ -82,8 +81,14 @@ unigramFit <- hedonicWithText(y , X , M)
 
 The coefficients for the tokens in the penalized regression can be extracted using
 <<>>=
-b <- coef(unigramFit , s='lambda.min')
-round(b , 3)
+bFit <- coef(unigramFit , s='lambda.min')
+@
+
+\pkg{tokenTable} will transform coefficients into a data frame for presentation
+
+<<>>=
+tokenDataFrame <- tokenTable(bFit)
+head(tokenDataFrame , n=10)
 @
 
 \end{document}
