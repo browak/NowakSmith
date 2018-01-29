@@ -19,5 +19,6 @@ df <- df[df$token!="",]
 df <- df[df$token!="(Intercept)",]
 df <- df[df$coefficient!=0,]
 df <- df[order(-abs(df$coefficient)),]
+rownames(df) <- NULL
 return(df)
 }
